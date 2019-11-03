@@ -3,7 +3,7 @@ Description=Time Tracker
 After=network.target
 
 [Service]
-ExecStart=/home/pi/.nvm/versions/node/v8.16.2/bin/node -u index.js
+ExecStart=/home/pi/.nvm/versions/node/v8.16.2/bin/node index.js
 WorkingDirectory=/home/pi/time-tracker
 StandardOutput=inherit
 StandardError=inherit
