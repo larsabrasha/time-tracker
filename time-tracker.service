@@ -1,0 +1,14 @@
+[Unit]
+Description=Time Tracker
+After=network.target
+
+[Service]
+ExecStart=/home/pi/.nvm/versions/node/v8.16.2/bin/node -u index.js
+WorkingDirectory=/home/pi/time-tracker
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
