@@ -71,7 +71,7 @@ module.exports = {
 
         const durationInHours =
           (end.getTime() - start.getTime()) / 1000 / 60 / 60;
-        durationInHoursRounded = roundedToFixed(durationInHours, 1);
+        durationInHoursRounded = roundedToFixed(durationInHours, 2);
 
         return {
           uid: x.id,
