@@ -1,7 +1,7 @@
 const sqlite3 = require("sqlite3");
 
 save = function(timestamp, type) {
-  var db = new sqlite3.Database("db.sqlite");
+  var db = new sqlite3.Database("/usr/src/app/data/db.sqlite");
 
   db.serialize(() => {
     // db.run("DROP TABLE IF EXISTS events");
@@ -27,7 +27,7 @@ module.exports = {
   },
 
   getEvents: function(callback) {
-    var db = new sqlite3.Database("db.sqlite");
+    var db = new sqlite3.Database("/usr/src/app/data/db.sqlite");
 
     db.all("SELECT rowid AS id, timestamp, type FROM events", function(
       err,

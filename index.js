@@ -1,11 +1,23 @@
 const express = require("express");
+const fs = require("fs");
 const app = express();
 
 const store = require("./store");
 const ical = require("./ical");
-const { apiKey } = require("./api-key");
 
+const apiKey = process.env.API_KEY;
 const port = 3000;
+const host = "0.0.0.0";
+
+const dataDir = "data";
+fs.access(dataDir, fs.constants.F_OK, err => {
+  if (err) {
+    fs.mkdir(dataDir, { recursive: true }, err => {
+      if (err) console.log(`Error creating directory: ${err}`);
+      else console.log("Data directory created successfully.");
+    });
+  }
+});
 
 app.use(function(req, res, next) {
   if (req.query.apiKey === apiKey) {
@@ -38,6 +50,6 @@ app.post("/checkOut", (req, res) => {
   res.send("Checked Out");
 });
 
-app.listen(port, "0.0.0.0", () =>
-  console.log(`Example app listening on port ${port}!`)
+app.listen(port, host, () =>
+  console.log(`Time Tracker running on port: ${port}!`)
 );
