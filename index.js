@@ -35,8 +35,13 @@ app.get("/events", (req, res) => {
 
 app.get("/events.ical", (req, res) => {
   store.getEvents(events => {
-    const calendarEvents = ical.convertToICal(events);
-    res.send(calendarEvents);
+    res.send(ical.getEvents(events));
+  });
+});
+
+app.get("/summaries.ical", (req, res) => {
+  store.getEvents(events => {
+    res.send(ical.getSummaries(events));
   });
 });
 
