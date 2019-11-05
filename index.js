@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
 
 app.get("/events", (req, res) => {
   store.getEvents(events => {
-    res.send(events);
+    res.send(events.map(x => ({ ...x, timestamp: new Date(x.timestamp) })));
   });
 });
 
