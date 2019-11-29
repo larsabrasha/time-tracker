@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "export API_KEY=asdf && export DB_PATH=db.sqlite && nodemon index.js"
   },
   "author": "Lars Arvidsson",
   "license": "MIT",

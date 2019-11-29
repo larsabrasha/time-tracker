@@ -2,12 +2,15 @@ const express = require("express");
 const fs = require("fs");
 const app = express();
 
-const store = require("./store");
+const Store = require("./store.js");
 const ical = require("./ical");
 
-const apiKey = process.env.API_KEY;
-const port = 3000;
-const host = "0.0.0.0";
+const apiKey = process.env.API_KEY || "asdf";
+const dbPath = process.env.DB_PATH || "/usr/src/app/data/db.sqlite";
+const port = process.env.PORT || 3000;
+const host = "localhost"; // "0.0.0.0";
+
+const store = new Store(dbPath);
 
 const dataDir = "data";
 fs.access(dataDir, fs.constants.F_OK, err => {
