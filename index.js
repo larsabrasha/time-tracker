@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const app = express();
 
-const Store = require("./store.js");
+const { checkIn, checkOut, getEvents } = require("./store");
 const ical = require("./ical");
 
 const apiKey = process.env.API_KEY || "asdf";
@@ -10,7 +10,9 @@ const dbPath = process.env.DB_PATH || "/usr/src/app/data/db.sqlite";
 const port = process.env.PORT || 3000;
 const host = "localhost"; // "0.0.0.0";
 
-const store = new Store(dbPath);
+const checkInToDb = checkIn(dbPath);
+const checkOutToDb = checkOut(dbPath);
+const getEventsFromDb = getEvents(dbPath);
 
 const dataDir = "data";
 fs.access(dataDir, fs.constants.F_OK, err => {
@@ -31,30 +33,30 @@ app.use(function(req, res, next) {
 });
 
 app.get("/events", (req, res) => {
-  store.getEvents(events => {
+  getEventsFromDb(events => {
     res.send(events.map(x => ({ ...x, timestamp: new Date(x.timestamp) })));
   });
 });
 
 app.get("/events.ical", (req, res) => {
-  store.getEvents(events => {
+  getEventsFromDb(events => {
     res.send(ical.getEvents(events));
   });
 });
 
 app.get("/summaries.ical", (req, res) => {
-  store.getEvents(events => {
+  getEventsFromDb(events => {
     res.send(ical.getSummaries(events));
   });
 });
 
 app.post("/checkIn", (req, res) => {
-  store.checkIn(new Date().getTime());
+  checkInToDb(new Date().getTime());
   res.send("Checked In");
 });
 
 app.post("/checkOut", (req, res) => {
-  store.checkOut(new Date().getTime());
+  checkOutToDb(new Date().getTime());
   res.send("Checked Out");
 });
 

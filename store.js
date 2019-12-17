@@ -1,39 +1,11 @@
 const sqlite3 = require("sqlite3");
 
-module.exports = class Store {
-  dbPath;
+const createDb = dbPath => new sqlite3.Database(dbPath);
 
-  constructor(dbPath) {
-    this.dbPath = dbPath;
-  }
+const save = dbPath => {
+  var db = createDb(dbPath);
 
-  getDb() {
-    return new sqlite3.Database(this.dbPath);
-  }
-
-  checkIn(timestamp) {
-    save(timestamp, 0);
-  }
-
-  checkOut(timestamp) {
-    save(timestamp, 1);
-  }
-
-  getEvents(callback) {
-    const db = this.getDb();
-
-    db.all("SELECT rowid AS id, timestamp, type FROM events", function(
-      err,
-      rows
-    ) {
-      callback(rows);
-      db.close();
-    });
-  }
-
-  save(timestamp, type) {
-    const db = this.getDb();
-
+  return (timestamp, type) => {
     db.serialize(() => {
       // db.run("DROP TABLE IF EXISTS events");
       db.run(
@@ -46,5 +18,31 @@ module.exports = class Store {
 
       db.close();
     });
-  }
+  };
+};
+
+const checkIn = dbPath => timestamp => {
+  save(dbPath)(timestamp, 0);
+};
+
+const checkOut = dbPath => timestamp => {
+  save(dbPath)(timestamp, 1);
+};
+
+const getEvents = dbPath => callback => {
+  const db = createDb(dbPath);
+
+  db.all("SELECT rowid AS id, timestamp, type FROM events", function(
+    err,
+    rows
+  ) {
+    callback(rows);
+    db.close();
+  });
+};
+
+module.exports = {
+  checkIn,
+  checkOut,
+  getEvents
 };

@@ -1,1 +1,7 @@
 http://localhost:3000/events?apiKey=asdf
+###
+http://localhost:3000/events.ical?apiKey=asdf
+###
+POST http://localhost:3000/checkIn?apiKey=asdf
+###
+POST http://localhost:3000/checkOut?apiKey=asdf
