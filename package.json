@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "export API_KEY=asdf && export DB_PATH=db.sqlite && nodemon index.js"
+    "start": "cross-env API_KEY=asdf cross-env DB_PATH=db.sqlite nodemon index.js"
   },
   "author": "Lars Arvidsson",
   "license": "MIT",
@@ -12,5 +12,8 @@
     "express": "^4.17.1",
     "ical-generator": "^1.8.2",
     "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3"
   }
 }
