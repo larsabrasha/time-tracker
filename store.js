@@ -52,20 +52,21 @@ const filterRows = rows => {
   var stop = null;
 
   return rows.reduce((prev, cur, index) => {
-    if (
-      start != null &&
-      stop != null &&
-      (cur.type === 0 || index + 1 === rows.length)
-    ) {
-      prev = [...prev, start, stop];
-      start = null;
+    if (cur.type === 0 && start !== null && stop !== null) {
+      prev = [...prev, { ...start }, { ...stop }];
+      start = cur;
       stop = null;
+    } else if (cur.type === 0 && start === null) {
+      start = cur;
+      stop = null;
+    } else if (cur.type === 1 && start !== null) {
+      stop = cur;
     }
 
-    if (start === null && cur.type === 0) {
-      start = cur;
-    } else if (cur.type === 1) {
-      stop = cur;
+    if (index + 1 === rows.length && start !== null && stop !== null) {
+      prev = [...prev, { ...start }, { ...stop }];
+    } else if (index + 1 === rows.length && start !== null) {
+      prev = [...prev, { ...start }];
     }
 
     return prev;

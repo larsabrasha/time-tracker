@@ -127,8 +127,6 @@ module.exports = {
       return { ...x, summary };
     });
 
-    console.log(summariesWithCalc);
-
     return ical({
       domain: "larsabrasha.com",
       prodId: { company: "Larsabrasha", product: "time-tracker" },
