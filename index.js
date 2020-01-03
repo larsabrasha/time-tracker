@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const app = express();
 
-const { checkIn, checkOut, getEvents } = require("./store");
+const { checkIn, checkOut, getFilteredEvents } = require("./store");
 const ical = require("./ical");
 
 const apiKey = process.env.API_KEY || "asdf";
@@ -12,7 +12,7 @@ const host = "localhost"; // "0.0.0.0";
 
 const checkInToDb = checkIn(dbPath);
 const checkOutToDb = checkOut(dbPath);
-const getEventsFromDb = getEvents(dbPath);
+const getEventsFromDb = getFilteredEvents(dbPath);
 
 const dataDir = "data";
 fs.access(dataDir, fs.constants.F_OK, err => {
