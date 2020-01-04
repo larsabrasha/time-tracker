@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  time-tracker:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: time-tracker:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - API_KEY=asdf
+    volumes:
+      - ${PWD}/data:/usr/src/app/data

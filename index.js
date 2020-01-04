@@ -24,6 +24,10 @@ fs.access(dataDir, fs.constants.F_OK, err => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.send("OK\n");
+});
+
 app.use(function(req, res, next) {
   if (req.query.apiKey === apiKey) {
     next();
