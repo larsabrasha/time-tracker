@@ -10,8 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "ical-generator": "^1.8.2",
-    "sqlite3": "^4.1.0"
+    "ical-generator": "^1.9.2",
+    "sqlite3": "^4.1.1"
   },
   "devDependencies": {
     "cross-env": "^6.0.3"
