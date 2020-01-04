@@ -8,7 +8,7 @@ const ical = require("./ical");
 const apiKey = process.env.API_KEY || "asdf";
 const dbPath = process.env.DB_PATH || "/usr/src/app/data/db.sqlite";
 const port = process.env.PORT || 3000;
-const host = "localhost"; // "0.0.0.0";
+const host = "0.0.0.0";
 
 const checkInToDb = checkIn(dbPath);
 const checkOutToDb = checkOut(dbPath);
